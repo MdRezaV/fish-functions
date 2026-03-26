@@ -1,7 +1,3 @@
-Here is the revised README with an example included at the end of each function description, as requested.
-
----
-
 # Fish Shell Functions for Arch Linux
 
 A collection of Fish shell functions designed to streamline common tasks on Arch Linux and its derivatives (such as EndeavourOS or Manjaro). These functions simplify package management, system cleanup, network diagnostics, and other routine operations.
@@ -13,7 +9,7 @@ A collection of Fish shell functions designed to streamline common tasks on Arch
    sudo pacman -S fish
    ```
 
-2. **Clone or download this repository** and copy the `.fish` files into the Fish functions directory:
+2. **Clone this repository** and copy the `.fish` files into the Fish functions directory:
    ```
    git clone https://github.com/MdRezaV/fish-functions.git
    cp fish-functions/*.fish ~/.config/fish/functions/
@@ -40,74 +36,73 @@ A wrapper around `aria2c` with optimized settings for high‑speed downloads. It
 - `-t, --torrent` : download a torrent or magnet link.
 - `-d, --dir <path>` : specify the download directory.
 - `-o, --out <name>` : specify the output filename.
-If no arguments are provided, a usage message is shown.
 
 **Example**: `download -d ~/Downloads -o archive.zip https://example.com/file.zip`
 
 ### `iploc`
-Geolocates an IP address or domain using MaxMind GeoLite2 databases. It first resolves a domain to an IP if needed, then queries the ASN and City databases to display the organization, AS number, city, country, country code, latitude, longitude, and time zone. The output is formatted with a space‑themed style.
+Geolocates an IP address or domain using MaxMind GeoLite2 databases. It resolves a domain to an IP if needed, then queries the ASN and City databases to display the organization, AS number, city, country, country code, coordinates, and time zone.
 
-**Database installation**: The function expects the databases at `~/v2/GeoLite2-ASN.mmdb` and `~/v2/GeoLite2-City.mmdb`. A convenient source is the [P3TERX/GeoLite.mmdb](https://github.com/P3TERX/GeoLite.mmdb) repository, which provides up‑to‑date downloads. You can also obtain them from [MaxMind](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data).
+**Database installation**: The function expects the databases at `~/v2/GeoLite2-ASN.mmdb` and `~/v2/GeoLite2-City.mmdb`. A convenient source is the [P3TERX/GeoLite.mmdb](https://github.com/P3TERX/GeoLite.mmdb) repository, which provides automated updates.
 
 **Example**: `iploc 8.8.8.8` or `iploc github.com`
 
 ### `myip`
-Queries `https://ipconfig.io/json` to retrieve the public IP address, country, city, coordinates, time zone, ASN, and ASN organization. It uses `curl` and `jq` to parse the JSON response and prints the information in a clean format. If the request fails, an error message is printed.
+Queries `https://ipconfig.io/json` to retrieve the public IP address, country, city, coordinates, time zone, ASN, and ASN organization. Uses `curl` and `jq`.
 
 **Example**: `myip`
 
 ### `packey`
-Updates the Arch Linux keyring. It updates the `archlinux-keyring` package, refreshes all keys from key servers, and populates the Arch Linux keys into the local trust database. This function is useful when encountering PGP signature errors during package installation or updates.
+Updates the Arch Linux keyring by updating the `archlinux-keyring` package, refreshing keys from servers, and populating the Arch Linux keys. Useful when encountering PGP signature errors.
 
 **Example**: `packey`
 
 ### `pacls`
-Lists all explicitly installed packages (i.e., packages that were installed directly by the user, not as dependencies). It uses `pacman -Qeq` to output a quiet list of package names, one per line.
+Lists all explicitly installed packages (i.e., packages installed directly by the user, not as dependencies). Uses `pacman -Qeq`.
 
 **Example**: `pacls`
 
 ### `pacR`
-Removes a specified package along with its dependencies that are no longer required. It passes the package name(s) to `sudo pacman -Rns`. If no package name is provided, a usage message is displayed.
+Removes a specified package along with its dependencies that are no longer required (`pacman -Rns`).
 
 **Example**: `pacR firefox`
 
 ### `pacS`
-Installs a specified package using `sudo pacman -S`. If no package name is provided, a usage message is displayed.
+Installs a specified package (`pacman -S`).
 
 **Example**: `pacS firefox`
 
 ### `pacu`
-Performs a full system upgrade using `sudo pacman -Syu`. This updates all packages and synchronizes the package database.
+Performs a full system upgrade (`pacman -Syu`).
 
 **Example**: `pacu`
 
 ### `py`
-A simple alias for the `python` command. Any arguments are passed directly to Python. Useful for quick Python interpreter invocations.
+A simple alias for the `python` command.
 
 **Example**: `py -m http.server 8000`
 
 ### `useproxy`
-Runs any command with HTTP and HTTPS proxy environment variables set to `http://127.0.0.1:10808`. It uses local‑scope variables (`set -lx`) so the proxy settings only affect the command being executed, not the shell session. If no command is given, a usage message is shown.
+Runs any command with HTTP and HTTPS proxy environment variables set to `http://127.0.0.1:10808`. Proxy settings only affect the command being executed.
 
 **Example**: `useproxy curl ifconfig.me`
 
 ### `yayls`
-Lists all foreign (AUR) packages installed via `yay`. It uses `yay -Qmq` to output a quiet list of package names.
+Lists all foreign (AUR) packages installed via `yay` (`yay -Qmq`).
 
 **Example**: `yayls`
 
 ### `yayR`
-Removes a specified AUR package along with its dependencies that are no longer required, using `yay -Rns`. If no package name is provided, a usage message is displayed.
+Removes a specified AUR package along with its dependencies that are no longer required (`yay -Rns`).
 
 **Example**: `yayR google-chrome`
 
 ### `yayS`
-Installs a specified AUR package using `yay -S`. If no package name is provided, a usage message is displayed.
+Installs a specified AUR package (`yay -S`).
 
 **Example**: `yayS google-chrome`
 
 ### `yayu`
-Performs a full system upgrade that includes both official repository packages and AUR packages, using `yay -Syu`.
+Performs a full system upgrade that includes both official repository packages and AUR packages (`yay -Syu`).
 
 **Example**: `yayu`
 
@@ -116,7 +111,7 @@ Performs a full system upgrade that includes both official repository packages a
 ## Important Notes
 
 - **`cleanarch`** is intentionally aggressive. It removes all pacman cache, all orphaned packages, and many user cache directories. Review its actions before execution.
-- **`iploc`** requires the MaxMind GeoLite2 databases. You can obtain them from the [P3TERX/GeoLite.mmdb](https://github.com/P3TERX/GeoLite.mmdb) repository, which provides automated updates. Place the files at `~/v2/GeoLite2-ASN.mmdb` and `~/v2/GeoLite2-City.mmdb`.
+- **`iploc`** requires the MaxMind GeoLite2 databases (see **Database installation** under the `iploc` description).
 - Some functions depend on external tools (`aria2c`, `jq`, `mmdblookup`, `yay`). Install them via pacman or the AUR as needed.
 - The `download` function uses aggressive parallel settings; adjust them if your network or hardware experiences issues.
 
@@ -133,7 +128,7 @@ You can modify these functions to suit your workflow. For example:
 
 ## License
 
-This collection is provided “as is”. You are free to use, modify, and distribute it without any warranty.
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file in the repository for details.
 
 ---
 
